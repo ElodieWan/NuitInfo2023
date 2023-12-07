@@ -5,6 +5,8 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { firebaseConfig } from './services/firebase.config';
 import {initializeApp} from 'firebase/app';
+import {getFirestore} from 'firebase/firestore';
+import { getAuth } from 'firebase/auth'; 
 
 const app = initializeApp(firebaseConfig);
 

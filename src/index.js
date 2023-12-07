@@ -6,6 +6,8 @@ import reportWebVitals from './reportWebVitals';
 import { firebaseConfig } from './services/firebase.config';
 import {initializeApp} from 'firebase/app';
 
+import 'bootstrap/dist/css/bootstrap.css';
+
 const app = initializeApp(firebaseConfig);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

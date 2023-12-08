@@ -1,0 +1,43 @@
+name: RetroversePipeline
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Build Docker Image
+        run: |
+          docker build -t nuitinfo2023:latest .
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+
+      - name: Configure Git
+        run: |
+          git config --global user.email "teamgrota@github.com"
+          git config --global user.name "GitHub Actions"
+
+      - name: Create GitHub Repository
+        run: |
+          git init
+          git add .
+          git commit -m "Initial commit"
+          git branch -M master
+          git remote add origin https://github.com/ElodieWan/NuitInfo2023.git
+          git push -u origin master
+
+      - name: Deploy to GitHub
+        run: |
+          git add .
+          git commit -m "Code update"
+          git push

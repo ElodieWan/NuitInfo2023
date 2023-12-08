@@ -1,0 +1,26 @@
+name: Retroverse Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  extract-source:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Build Docker image
+      run: docker build -t my-docker-image .
+
+    - name: Create temporary container
+      run: docker create --name my-temp-container my-docker-image
+
+    - name: Extract source from container
+      run: docker cp my-temp-container:/usr/src/app /github/workspace/source
+
+    - name: Clean up temporary container
+      run: docker rm my-temp-container
